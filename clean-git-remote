@@ -9,6 +9,6 @@ git submodule foreach git fetch --all --prune
 git submodule foreach git checkout master
 git submodule foreach git pull --ff-only
 
-clean-git-branches
+clean-git-branches-remote
 
-git submodule foreach clean-git-branches
+git submodule foreach clean-git-branches-remote

@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [ `git get-branch` != master ];
+then
+    echo "This must be run on the master branch"
+fi;
+
+for f in `git branch -r  --merged | grep -v HEAD | grep -v master | sed -e 's/.*origin\///' | grep /`
+do
+	git push origin :$f
+done

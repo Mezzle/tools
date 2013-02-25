@@ -1,0 +1,34 @@
+#!/bin/bash
+
+if [ "$(id -u)" != "0" ];
+then
+    echo "This script must be run as root" 1>&2
+    exit 1
+fi;
+
+grep -R apt.opscode.com /etc/apt/ 2>&1 >/dev/null
+
+RETVAL=$?
+
+if [ $RETVAL -eq 2 ];
+then
+    echo "An Error Occured" 1>&2
+fi;
+
+
+if [ $RETVAL -eq 1 ];
+then
+    echo "deb http://apt.opscode.com $(lsb_release -cs)-0.10 main" >> /etc/apt/sources.list.d/opscode-chef.list
+fi
+
+
+dpkg-query -W --showformat='${Status}\n' chef 2>&1 >/dev/null
+
+if [ $? -eq 1 ];
+then
+    apt-key adv --keyserver keyserver.ubuntu.com --recv-key 83EF826A
+    apt-get update -qq
+    apt-get install -qy chef
+fi
+
+echo "Chef Installed!"
