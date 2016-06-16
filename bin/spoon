@@ -1,4 +1,4 @@
 #!/bin/bash
 
-cd /home/share/kettle
+cd $HOME/Programs/data-integration/
 ./spoon.sh
