@@ -1,8 +1,0 @@
-#!/bin/bash
-
-set -e
-
-git co integration
-git ff
-git co -
-git rebase integration
